@@ -7,12 +7,14 @@ import kotlin.collections.listOf
 
 var listaDeJuegos = listOf<Videojuego>(
 
-    Videojuego(
-"Metroid",
-        60.99,
-        "Accion",
-        "Divertido"
-    )
+//    Videojuego(
+//"Metroid",
+//        60.99,
+//        "Accion",
+//        "Divertido",
+//
+//        )
+
 
 )
 
