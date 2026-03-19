@@ -53,13 +53,9 @@ var listaDeJuegos = listOf<Videojuego>(
         "Aventura",
         "The Legend of Zelda: Breath of the Wild es un videojuego de mundo abierto desarrollado por Nintendo donde el jugador explora Hyrule con total libertad, resolviendo acertijos y enfrentando enemigos.",
         R.drawable.posterZelda
-    ),
-
-
-
-
     )
+)
 
-//fun obtenerVideojuegos: listOf<Videojuego>{
-//    return listaDeJuegos
-//}
+fun obtenerVideojuegos(): List<Videojuego>{
+    return listaDeJuegos
+ }
