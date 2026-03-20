@@ -2,9 +2,10 @@ package islas.abril.tiendavideojuegos.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.material3.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 fun CatalogVideoGames(
@@ -31,21 +33,19 @@ fun CatalogVideoGames(
 ) {
 
     Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFF1E1E2E),
-                            Color(0xFF2A2A40)
-                        )
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF1E1E2E),
+                        Color(0xFF2A2A40)
                     )
                 )
-                .padding(innerPadding)
-                .padding(16.dp)
-
-    )
-    {
+            )
+            .padding(innerPadding)
+            .padding(16.dp)
+    ) {
 
         Text(
             text = "Catálogo de videojuegos",
@@ -55,21 +55,22 @@ fun CatalogVideoGames(
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-
         Spacer(modifier = Modifier.height(16.dp))
 
         if (viewModel.juegoSeleccionado == null) {
 
-            LazyColumn {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
 
                 items(viewModel.listaJuegos) { juego ->
 
                     Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(10.dp),
-                        shape = RoundedCornerShape(16.dp),
-                        elevation = CardDefaults.cardElevation(8.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = CardDefaults.cardElevation(10.dp),
                         onClick = {
                             viewModel.seleccionarJuego(juego)
                         }
@@ -82,7 +83,7 @@ fun CatalogVideoGames(
                                 contentDescription = juego.nombre,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(200.dp),
+                                    .aspectRatio(1f),
                                 contentScale = ContentScale.Crop
                             )
 
@@ -93,7 +94,8 @@ fun CatalogVideoGames(
                                         Brush.verticalGradient(
                                             colors = listOf(
                                                 Color.Transparent,
-                                                Color.Black.copy(alpha = 0.7f)
+                                                Color.Black.copy(alpha = 0.6f),
+                                                Color.Black.copy(alpha = 0.9f)
                                             )
                                         )
                                     )
@@ -102,14 +104,16 @@ fun CatalogVideoGames(
                             Column(
                                 modifier = Modifier
                                     .align(Alignment.BottomStart)
-                                    .padding(12.dp)
+                                    .padding(8.dp)
                             ) {
 
                                 Text(
                                     text = juego.nombre,
                                     color = Color.White,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
                                 )
 
                                 Spacer(modifier = Modifier.height(4.dp))
@@ -121,7 +125,10 @@ fun CatalogVideoGames(
                                     modifier = Modifier
                                         .background(
                                             Brush.horizontalGradient(
-                                                listOf(Color(0xFF00C853), Color(0xFF64DD17))
+                                                listOf(
+                                                    Color(0xFF00C853),
+                                                    Color(0xFF64DD17)
+                                                )
                                             ),
                                             shape = RoundedCornerShape(50)
                                         )
@@ -134,12 +141,9 @@ fun CatalogVideoGames(
             }
 
         } else {
-
             videogameDetail(viewModel.juegoSeleccionado!!)
-
         }
     }
-
 }
 
 @Preview(showBackground = true)
