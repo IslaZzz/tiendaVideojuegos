@@ -23,13 +23,17 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavController
+import islas.abril.tiendavideojuegos.navigation.Routes
 
 @Composable
 fun CatalogVideoGames(
     innerPadding: PaddingValues,
-    viewModel: GamesViewModel = viewModel()
+    navController: NavController,
+    viewModel: GamesViewModel
 ) {
 
     Column(
@@ -65,14 +69,13 @@ fun CatalogVideoGames(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
 
-                items(viewModel.listaJuegos) { juego ->
-
+                itemsIndexed(viewModel.listaJuegos) { index, juego ->
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(20.dp),
                         elevation = CardDefaults.cardElevation(10.dp),
                         onClick = {
-                            viewModel.seleccionarJuego(juego)
+                            navController.navigate("${Routes.DETALLE}/${juego.id}")
                         }
                     ) {
 
@@ -140,14 +143,6 @@ fun CatalogVideoGames(
                 }
             }
 
-        } else {
-            videogameDetail(viewModel.juegoSeleccionado!!)
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CatalogVideoGamesPreview(){
-    CatalogVideoGames(PaddingValues(5.dp))
 }

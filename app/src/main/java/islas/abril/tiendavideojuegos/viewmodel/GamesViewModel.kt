@@ -25,7 +25,9 @@ class GamesViewModel : ViewModel() {
     private fun cargarJuegos() {
         listaJuegos.addAll(listaDeJuegos)
     }
-
+    fun obtenerJuegoID(id: Int): Videojuego? {
+        return listaJuegos.find { it.id == id }
+    }
     fun aplicarDescuento(precio: Double): Pair<Double, Int> {
         val descuento = Random.nextInt(0, 101)
 

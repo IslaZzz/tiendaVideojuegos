@@ -2,6 +2,7 @@ package islas.abril.tiendavideojuegos.model
 
 data class Videojuego(
 
+    val id: Int,
     val nombre: String,
     var precio: Double,
     val categoria: String,

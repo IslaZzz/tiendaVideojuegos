@@ -31,20 +31,20 @@ import islas.abril.tiendavideojuegos.R
 import islas.abril.tiendavideojuegos.dummies.obtenerVideojuegoRandom
 import islas.abril.tiendavideojuegos.model.Videojuego
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import islas.abril.tiendavideojuegos.viewmodel.GamesViewModel
 
 
 
-@Preview (showBackground = true)
-@Composable
-fun showVideogameDetail(){
-    videogameDetail(obtenerVideojuegoRandom())
-}
+//@Preview (showBackground = true)
+//@Composable
+//fun showVideogameDetail(){
+//    videogameDetail(obtenerVideojuegoRandom())
+//}
 
 @Composable
-fun videogameDetail(videojuego: Videojuego){
+fun videogameDetail(videojuego: Videojuego, navController: NavController, viewModel: GamesViewModel){
 
-    val viewModel: GamesViewModel = viewModel()
     val (precioFinal, descuento) = remember {
         viewModel.aplicarDescuento(videojuego.precio)
     }
@@ -125,6 +125,7 @@ fun videogameDetail(videojuego: Videojuego){
             Spacer(modifier = Modifier.padding(5.dp))
             Button(
                 onClick = {
+                    navController.popBackStack()
                 },
                 modifier = Modifier.fillMaxWidth()
                     .size(300.dp, 50.dp)

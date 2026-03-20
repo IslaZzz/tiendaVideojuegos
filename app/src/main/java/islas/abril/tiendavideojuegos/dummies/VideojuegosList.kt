@@ -9,6 +9,7 @@ import kotlin.collections.listOf
 var listaDeJuegos = listOf<Videojuego>(
 
    Videojuego(
+       1,
        "Metroid Dread",
        60.99,
        "Accion",
@@ -16,6 +17,7 @@ var listaDeJuegos = listOf<Videojuego>(
        R.drawable.postermetroid
        ),
     Videojuego(
+        2,
         "DOOM Eternal",
         59.99,
         "Shooter",
@@ -24,6 +26,7 @@ var listaDeJuegos = listOf<Videojuego>(
     ),
 
     Videojuego(
+        3,
         "Silent Hill 2",
         49.99,
         "Terror",
@@ -32,6 +35,7 @@ var listaDeJuegos = listOf<Videojuego>(
     ),
 
     Videojuego(
+        4,
         "Resident Evil 4",
         39.99,
         "Terror",
@@ -40,6 +44,7 @@ var listaDeJuegos = listOf<Videojuego>(
     ),
 
     Videojuego(
+        5,
         "Minecraft",
         26.95,
         "Sandbox",
@@ -48,6 +53,7 @@ var listaDeJuegos = listOf<Videojuego>(
     ),
 
     Videojuego(
+        6,
         "The Legend of Zelda: Breath of the Wild",
         59.99,
         "Aventura",
