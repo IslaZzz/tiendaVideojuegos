@@ -27,7 +27,7 @@ class GamesViewModel : ViewModel() {
     }
 
     fun aplicarDescuento(precio: Double): Pair<Double, Int> {
-        val descuento = Random.nextInt(0, 101) // 0% a 100%
+        val descuento = Random.nextInt(0, 101)
 
         val precioFinal = precio - (precio * descuento / 100)
 
