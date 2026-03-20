@@ -11,7 +11,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import islas.abril.tiendavideojuegos.viewmodel.GamesViewModel
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Alignment
 
 @Composable
 fun CatalogVideoGames(
@@ -27,60 +31,115 @@ fun CatalogVideoGames(
 ) {
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
-            .padding(16.dp)
-    ) {
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFF1E1E2E),
+                            Color(0xFF2A2A40)
+                        )
+                    )
+                )
+                .padding(innerPadding)
+                .padding(16.dp)
 
-        Text("Catálogo de videojuegos")
+    )
+    {
+
+        Text(
+            text = "Catálogo de videojuegos",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LazyColumn {
-            items(viewModel.listaJuegos) { juego ->
+        if (viewModel.juegoSeleccionado == null) {
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    elevation = CardDefaults.cardElevation(6.dp)
-                ) {
+            LazyColumn {
 
-                    Column {
-                        Image(
-                            painter = painterResource(id = juego.imagen),
-                            contentDescription = juego.nombre,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(180.dp)
-                                .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
-                            contentScale = ContentScale.Fit
-                        )
+                items(viewModel.listaJuegos) { juego ->
 
-                        Column(modifier = Modifier.padding(12.dp)) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        elevation = CardDefaults.cardElevation(8.dp),
+                        onClick = {
+                            viewModel.seleccionarJuego(juego)
+                        }
+                    ) {
 
+                        Box {
 
-                            Text(
-                                text = juego.nombre,
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
+                            Image(
+                                painter = painterResource(id = juego.imagen),
+                                contentDescription = juego.nombre,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp),
+                                contentScale = ContentScale.Crop
                             )
 
-                            Spacer(modifier = Modifier.height(4.dp))
-
-
-                            Text(
-                                text = "$${juego.precio}",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.primary
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.Transparent,
+                                                Color.Black.copy(alpha = 0.7f)
+                                            )
+                                        )
+                                    )
                             )
+
+                            Column(
+                                modifier = Modifier
+                                    .align(Alignment.BottomStart)
+                                    .padding(12.dp)
+                            ) {
+
+                                Text(
+                                    text = juego.nombre,
+                                    color = Color.White,
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                Text(
+                                    text = "$${juego.precio}",
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier
+                                        .background(
+                                            Brush.horizontalGradient(
+                                                listOf(Color(0xFF00C853), Color(0xFF64DD17))
+                                            ),
+                                            shape = RoundedCornerShape(50)
+                                        )
+                                        .padding(horizontal = 10.dp, vertical = 4.dp)
+                                )
+                            }
                         }
                     }
                 }
             }
+
+        } else {
+
+            videogameDetail(viewModel.juegoSeleccionado!!)
+
         }
     }
+
 }
 
 @Preview(showBackground = true)

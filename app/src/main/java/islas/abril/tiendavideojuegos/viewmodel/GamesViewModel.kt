@@ -15,6 +15,13 @@ class GamesViewModel : ViewModel() {
         cargarJuegos()
     }
 
+    var juegoSeleccionado: Videojuego? = null
+        private set
+
+    fun seleccionarJuego(juego: Videojuego) {
+        juegoSeleccionado = juego
+    }
+
     private fun cargarJuegos() {
         listaJuegos.addAll(listaDeJuegos)
     }
