@@ -24,7 +24,7 @@ fun AppNavigation() {
         composable(Routes.CATALOGO) {
             CatalogVideoGames(PaddingValues(0.dp), navController,viewModel)
         }
-        composable("${Routes.DETALLE}/{gameId}") { backStackEntry ->
+        composable("${Routes.DETALLE}/{id}") { backStackEntry ->
 
             val id = backStackEntry.arguments?.getString("id")?.toIntOrNull()
             val juego = id?.let { viewModel.obtenerJuegoID(it) }
